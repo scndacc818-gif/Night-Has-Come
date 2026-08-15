@@ -103,11 +103,11 @@ export default function App() {
   const [playerName, setPlayerName] = useState("");
 
   // Game State
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<any[]>([]);
   const [myPlayerId, setMyPlayerId] = useState(null);
   const [phase, setPhase] = useState("NIGHT"); // NIGHT, DAY, VOTE
   const [day, setDay] = useState(1);
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState<any[]>([]);
   const [selectedTarget, setSelectedTarget] = useState(null);
 
   // --- MENU ACTIONS ---
