@@ -182,23 +182,19 @@ export default function App() {
   };
 
   const startGame = () => {
-    if (players.length < 4) return alert("Minimal 4 pemain untuk memulai!");
+  if (players.length < 4) return alert("Minimal 4 pemain untuk memulai!");
 
-    // Bagi peran (Simulasi)
-    const shuffledRoles = [
-      ROLES[0],
-      ROLES[0],
-      ROLES[1],
-      ROLES[2],
-      ROLES[3],
-      ROLES[3],
-      ROLES[3],
-      ROLES[3],
-    ];
-    const updatedPlayers = players.map((p, index) => ({
+  // Siapkan 8 peran dasar
+  const availableRoles = [ROLES[0], ROLES[0], ROLES[1], ROLES[2], ROLES[3], ROLES[3], ROLES[3], ROLES[3]];
+
+  // Acak susunan perannya secara random (Shuffle)
+  const shuffledRoles = availableRoles.sort(() => Math.random() - 0.5);
+
+  const updatedPlayers = players.map((p, index) => ({
       ...p,
-      role: shuffledRoles[index % shuffledRoles.length], // Distribusi dummy
-    }));
+      role: shuffledRoles[index % shuffledRoles.length] 
+  }));
+
 
     setPlayers(updatedPlayers);
     setLogs([
@@ -516,12 +512,18 @@ export default function App() {
                   Voting Eksekusi
                 </button>
               </div>
-            ) : (
-              <div className="text-center p-4 border border-white/10 rounded-lg bg-white/5 text-gray-400 text-sm italic">
-                Tidak ada aksi yang bisa dilakukan saat ini. Silakan berdiskusi
-                atau tunggu waktu berikutnya.
-              </div>
-            )}
+              } : phase === 'DAY' ? (
+      <div>
+          <p className="text-sm text-gray-400 mb-4">Waktu diskusi. Tentukan siapa yang mencurigakan, lalu mulai pemungutan suara.</p>
+          <button 
+              onClick={() => setPhase('VOTE')}
+              className="w-full py-3 rounded-lg font-bold transition-all bg-yellow-700 hover:bg-yellow-600 text-white"
+          >
+              Lanjut ke Sesi Voting
+          </button>
+      </div>
+  ) : null}
+
           </div>
 
           {/* Chat & Logs (Simulasi Real-time) */}
