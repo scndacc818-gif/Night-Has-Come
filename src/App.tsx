@@ -104,7 +104,7 @@ export default function App() {
 
   // Game State
   const [players, setPlayers] = useState<any[]>([]);
-  const [myPlayerId, setMyPlayerId] = useState(null);
+  const [myPlayerId, setMyPlayerId] = useState<number | null>(null);
   const [phase, setPhase] = useState("NIGHT"); // NIGHT, DAY, VOTE
   const [day, setDay] = useState(1);
   const [logs, setLogs] = useState<any[]>([]);
