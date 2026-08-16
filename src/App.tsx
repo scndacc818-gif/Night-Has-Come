@@ -213,7 +213,19 @@ export default function App() {
   };
 
   const myPlayer = players.find((p) => p.id === myPlayerId);
+  const konfirmasiMalam = () => {
+    setLogs([...logs, { type: 'system', text: 'Malam telah berlalu. Target Anda telah dieksekusi.' }]);
+    setPhase('DAY');
+    setSelectedTarget(null);
+  };
 
+  const konfirmasiVoting = () => {
+    setLogs([...logs, { type: 'system', text: 'Pemungutan suara selesai. Warga telah membuat keputusan.' }]);
+    setPhase('NIGHT');
+    setDay(day + 1);
+    setSelectedTarget(null);
+  };
+    
   // --- UI COMPONENTS ---
   if (appState === "MENU") {
     return (
@@ -476,6 +488,7 @@ export default function App() {
                   Pilih target di papan, lalu konfirmasi aksi Anda.
                 </p>
                 <button
+                  onClick={konfirmasiMalam}
                   disabled={!selectedTarget}
                   className={`w-full py-3 rounded-lg font-bold transition-all ${
                     selectedTarget
@@ -492,6 +505,7 @@ export default function App() {
                   Pilih satu pemain untuk dieksekusi.
                 </p>
                 <button
+                  onClick={konfirmasiVoting}
                   disabled={!selectedTarget}
                   className={`w-full py-3 rounded-lg font-bold transition-all ${
                     selectedTarget
